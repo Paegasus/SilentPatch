@@ -19,4 +19,5 @@ jobs:
         shell: cmd
         run: |
           cd /d "%GITHUB_WORKSPACE%"
-          dir /b
+          cd
+          dir /s /b
