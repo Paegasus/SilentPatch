@@ -10,7 +10,7 @@ jobs:
   build_windows:
     runs-on: windows-2025
     env:
-      RWG36SDK: "%GITHUB_WORKSPACE%\rwsdk"
+      RWG36SDK: ${{ github.workspace }}\rwsdk
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
