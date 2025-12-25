@@ -1,0 +1,19 @@
+name: Test
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [dev]
+
+jobs:
+
+  build_windows:
+    runs-on: windows-2025
+    env:
+      RWG36SDK: ${{ github.workspace }}\rwsdk
+    steps:
+      - name: List files
+        shell: cmd
+        run: |
+          cd /d "%GITHUB_WORKSPACE%"
+          dir /b
