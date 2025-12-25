@@ -1,0 +1,35 @@
+name: Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [dev]
+
+jobs:
+
+  build_windows:
+    runs-on: windows-2025
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Cache Chocolatey packages
+        uses: actions/cache@v3
+        with:
+          path: C:\ProgramData\chocolatey\lib
+          key: choco-packages-v1
+
+      - name: Install Visual Studio 2017 Build Tools with XP support
+        shell: cmd
+        run: |
+          choco install visualstudio2017buildtools -y --package-parameters="'--add Microsoft.VisualStudio.Workload.VCTools --add Microsoft.VisualStudio.Component.VC.v141.x86.x64 --add Microsoft.VisualStudio.Component.VC.v141.xp --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.Windows10SDK.10240 --add Microsoft.VisualStudio.ComponentGroup.NativeDesktop.WinXP --add Microsoft.VisualStudio.Component.WinXP'"
+    
+      - name: List Visual Studio directories
+        shell: cmd
+        run: |
+          dir "C:\Program Files (x86)\Microsoft Visual Studio" /s /b
+
+      - name: Set RWG36SDK
+        shell: cmd
+        run: |
+          setx RWG36SDK "C:\RW\Graphics\rwsdk"
