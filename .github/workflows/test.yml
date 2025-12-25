@@ -12,6 +12,9 @@ jobs:
     env:
       RWG36SDK: ${{ github.workspace }}\rwsdk
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
       - name: List files
         shell: cmd
         run: |
