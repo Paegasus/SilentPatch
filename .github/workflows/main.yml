@@ -30,9 +30,4 @@ jobs:
         shell: cmd
         run: |
           call "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\VC\Auxiliary\Build\vcvars32.bat"
-          "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin\MSBuild.exe" ^
-          "D:\a\SilentPatch\SilentPatch\SilentPatchSA\SilentPatchSA.vcxproj" ^
-          "/t:Clean;Build" ^
-          /p:Configuration=Shipping ^
-          /p:Platform=Win32 ^
-          /m
+          "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin\MSBuild.exe" "D:\a\SilentPatch\SilentPatch\SilentPatchSA\SilentPatchSA.vcxproj" "/t:Clean;Build" /p:Configuration=Shipping /p:Platform=Win32 /m
