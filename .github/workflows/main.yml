@@ -29,8 +29,5 @@ jobs:
       - name: Build SilentPatchSA (Shipping | Win32)
         shell: cmd
         run: |
-          REM Setup VS 2017 environment
-          call "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\VC\Auxiliary\Build\vcvarsall.bat" x86
-
-          REM Build the Shipping | Win32 configuration
-          msbuild SilentPatchSA\SilentPatchSA.vcxproj /p:Configuration=Shipping /p:Platform=Win32
+         call "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\VC\Auxiliary\Build\vcvars32.bat" ^
+          && msbuild SilentPatchSA\SilentPatchSA.vcxproj "/t:Clean;Build" /p:Configuration="Shipping" /p:Platform="Win32" /m
