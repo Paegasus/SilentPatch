@@ -10,7 +10,7 @@ jobs:
   build_windows:
     runs-on: windows-2025
     env:
-      RWG36SDK: ${{ github.workspace }}\rwsdk
+      RWG36SDK: "%GITHUB_WORKSPACE%\rwsdk"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -29,5 +29,6 @@ jobs:
       - name: Build SilentPatchSA (Shipping | Win32)
         shell: cmd
         run: |
-         call "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\VC\Auxiliary\Build\vcvars32.bat" ^
-          && msbuild SilentPatchSA\SilentPatchSA.vcxproj "/t:Clean;Build" /p:Configuration="Shipping" /p:Platform="Win32" /m
+         call "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\VC\Auxiliary\Build\vcvars32.bat"
+
+         "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin\MSBuild.exe" SilentPatchSA\SilentPatchSA.vcxproj /t:Clean;Build /p:Configuration=Shipping /p:Platform=Win32 /m
