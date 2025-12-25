@@ -9,6 +9,8 @@ jobs:
 
   build_windows:
     runs-on: windows-2025
+    env:
+      RWG36SDK: "%GITHUB_WORKSPACE%\rwsdk"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -23,13 +25,12 @@ jobs:
         shell: cmd
         run: |
           choco install visualstudio2017buildtools -y --package-parameters="'--add Microsoft.VisualStudio.Workload.VCTools --add Microsoft.VisualStudio.Component.VC.v141.x86.x64 --add Microsoft.VisualStudio.Component.VC.v141.xp --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.Windows10SDK.10240 --add Microsoft.VisualStudio.ComponentGroup.NativeDesktop.WinXP --add Microsoft.VisualStudio.Component.WinXP'"
-    
-      - name: List Visual Studio directories
-        shell: cmd
-        run: |
-          dir "C:\Program Files (x86)\Microsoft Visual Studio" /s /b
 
-      - name: Set RWG36SDK
+      - name: Build SilentPatchSA (Shipping | Win32)
         shell: cmd
         run: |
-          setx RWG36SDK "C:\RW\Graphics\rwsdk"
+          REM Setup VS 2017 environment
+          call "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\VC\Auxiliary\Build\vcvarsall.bat" x86
+
+          REM Build the Shipping | Win32 configuration
+          msbuild SilentPatchSA\SilentPatchSA.vcxproj /p:Configuration=Shipping /p:Platform=Win32
